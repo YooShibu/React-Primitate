@@ -1,0 +1,35 @@
+{
+  "name": "react-primitate",
+  "version": "1.0.0",
+  "description": "Connect Primitate and React",
+  "main": "./lib/ReactPrimitate.js",
+  "scripts": {
+    "test": "./node_modules/jasmine/bin/jasmine.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YooShibu/React-Primitate.git"
+  },
+  "keywords": [
+    "primitate",
+    "react"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "primitate": "^2.1.0",
+    "react": "^15.3.2"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.2",
+    "jsdom": "^9.5.0",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "typescript": "^2.0.3"
+  },
+  "author": "Yohei Shibuya <yoshibu.develop@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/YooShibu/React-Primitate/issues"
+  },
+  "homepage": "https://github.com/YooShibu/React-Primitate#readme",
+  "typings": "./lib/ReactPrimitate.d.ts"
+}

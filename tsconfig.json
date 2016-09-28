@@ -1,0 +1,14 @@
+{ "compilerOptions":
+  { "outDir": "./lib"
+  , "declaration": true
+  , "strictNullChecks": true
+  , "module": "commonjs"
+  , "sourceMap": true
+  , "noImplicitAny": true
+  }
+
+, "files":
+  [ "./src/ReactPrimitate.ts"
+  
+  ]
+}
