@@ -1,4 +1,5 @@
 # React-Primitate
+[![Build Status](https://travis-ci.org/YooShibu/React-Primitate.svg?branch=master)](https://travis-ci.org/YooShibu/React-Primitate)
 
 React-Primitate is an official addon for the [Primitate](https://github.com/YooShibu/Primitate)
 to connect Primitate and React.
