@@ -26,8 +26,8 @@ describe("React Primitate", () => {
       createElement("div", null, count)
     );
     
-    const ConnectedComp = connect( state => state.counter )( counter => ({
-      count: counter.count
+    const ConnectedComp = connect( state => state.counter )( state => ({
+      count: state.counter.count
     }))(Counter);
 
     const tree = renderIntoDocument(createElement(ConnectedComp));
@@ -54,7 +54,7 @@ describe("React Primitate", () => {
     );
 
     const ConnectedComp = connect( state => state.counter )( (state, actions) => ({
-      count: state.count
+      count: state.counter.count
     , increment: actions.increment$
     }))(Counter);
 

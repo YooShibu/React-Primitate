@@ -38,8 +38,8 @@ const connect = applyAddon( initConnector({ increment$ }) );
 // ConnectedComp has two state 'count' and 'increment'
 // The count will update when you emmit increment$
 
-const ConnectedComp = connect( state => state.counter )( (counter, actions) => ({
-  count: counter.count,
+const ConnectedComp = connect( state => state.counter )( (state, actions) => ({
+  count: state.counter.count,
   increment: actions.increment$
 }))(Counter);
 ```
