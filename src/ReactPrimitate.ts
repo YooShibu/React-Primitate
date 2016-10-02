@@ -3,12 +3,13 @@ import * as React from "react"
 
 export default function initConnector<A>(actions?: A) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
-    return <T>(pick: (state: S) => T) => {
+    return <T>(...pickers: ((state: S) => T)[]) => {
       return <P>(getProps: (state: S, actions?: A) => P) => {
         return (wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P> | React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>> ) => {
           return React.createClass<{}, P>({
             componentWillMount() {
-              this.unsubscribe = subscribe(pick)( state => {
+              const subscriber = <(listener: (state: S) => void) => () => void>subscribe.apply(null, pickers);
+              this.unsubscribe = subscriber( state => {
                 const props = getProps(state, actions);
                 this.setState(props);
               });
