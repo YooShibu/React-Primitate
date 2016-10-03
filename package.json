@@ -1,6 +1,6 @@
 {
   "name": "react-primitate",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Connect Primitate and React",
   "main": "./lib/ReactPrimitate.js",
   "scripts": {
