@@ -5,8 +5,8 @@ export default function initConnector<A>(actions?: A) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
     return <T>(...pickers: ((state: S) => T)[]) => {
       return <P>(getProps: (state: S, actions?: A) => P) => {
-        return (wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P> | React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>> ) => {
-          return React.createClass<{}, P>({
+        return <PROP>(wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P> | React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>> ) => {
+          return React.createClass<PROP, P>({
             componentWillMount() {
               const subscriber = <(listener: (state: S) => void) => () => void>subscribe.apply(null, pickers);
               this.unsubscribe = subscriber( state => {
