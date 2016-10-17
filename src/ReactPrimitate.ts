@@ -1,17 +1,11 @@
 import { createAction, subscribe } from "primitate"
 import * as React from "react"
-const HigherOrderComponent = <P, PROP extends P>(
-          wrappedComponent: React.ComponentClass<PROP> | React.StatelessComponent<PROP>
-) => {
-  return class extends React.Component<PROP, any> {
-    render() {
-      const props: { [key: string]: any} = {};
-      for (let key in this.props) props[key] = (<{ [key: string]: any}>this.props)[key];
-      for (let key in this.state) props[key] = (<{ [key: string]: any}>this.state)[key];
-      return React.createElement(wrappedComponent, <PROP>props);
-    }
-  };
-};
+
+export declare type connect<Action, State> = <T>(...pickers: ((state: State) => T)[]) => 
+  <P>(getProps: (state: State, acctions?: Action) => P) => <PROP>(
+    wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
+  ) => React.ComponentClass<PROP> 
+
 export default function initConnector<A>(actions?: A) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
     return <T>(...pickers: ((state: S) => T)[]) => {
