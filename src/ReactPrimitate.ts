@@ -1,12 +1,30 @@
 import { createAction, subscribe } from "primitate"
 import * as React from "react"
-
+const HigherOrderComponent = <P, PROP extends P>(
+          wrappedComponent: React.ComponentClass<PROP> | React.StatelessComponent<PROP>
+) => {
+  return class extends React.Component<PROP, any> {
+    render() {
+      const props: { [key: string]: any} = {};
+      for (let key in this.props) props[key] = (<{ [key: string]: any}>this.props)[key];
+      for (let key in this.state) props[key] = (<{ [key: string]: any}>this.state)[key];
+      return React.createElement(wrappedComponent, <PROP>props);
+    }
+  };
+};
 export default function initConnector<A>(actions?: A) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
     return <T>(...pickers: ((state: S) => T)[]) => {
       return <P>(getProps: (state: S, actions?: A) => P) => {
-        return <PROP>(wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P> | React.ClassType<P, React.ClassicComponent<P, React.ComponentState>, React.ClassicComponentClass<P>> ) => {
-          return React.createClass<PROP, P>({
+        return <PROP>(
+          wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
+        ): React.ComponentClass<PROP> => {
+
+          return class extends React.Component<PROP, P> {
+            unsubscribe: () => void
+            
+            constructor(props: PROP) { super(props); }
+            
             componentWillMount() {
               const subscriber = <(listener: (state: S) => void) => () => void>subscribe.apply(null, pickers);
               this.unsubscribe = subscriber( state => {
@@ -14,16 +32,18 @@ export default function initConnector<A>(actions?: A) {
                 this.setState(props);
               });
             }
-          , componentWillUnmount() {
+
+            componentWillUnmount() {
               this.unsubscribe();
-          }
-          , render() {
+            }
+
+          render() {
               const props: { [key: string]: any} = {};
-              for (let key in this.props) props[key] = this.props[key];
-              for (let key in this.state) props[key] = this.state[key];
+              for (let key in this.props) props[key] = (<{ [key: string]: any}>this.props)[key];
+              for (let key in this.state) props[key] = (<{ [key: string]: any}>this.state)[key];
               return React.createElement(wrappedComponent, <P>props);
             }
-          });
+          }
         }
       }
     }
