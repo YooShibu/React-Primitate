@@ -6,10 +6,10 @@ export declare type connect<Action, State> = <T>(...pickers: ((state: State) => 
     wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
   ) => React.ComponentClass<PROP> 
 
-export default function initConnector<A>(actions?: A) {
+export default function initConnector<A extends {}>(actions: A = <A>{}) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
     return <T>(...pickers: ((state: S) => T)[]) => {
-      return <P>(getProps: (state: S, actions?: A) => P) => {
+      return <P>(getProps: (state: S, actions: A) => P) => {
         return <PROP>(
           wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
         ): React.ComponentClass<PROP> => {
