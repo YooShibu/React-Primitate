@@ -1,14 +1,14 @@
 import { createAction, subscribe } from "primitate"
 import * as React from "react"
 
-export declare type connect<Action, State> = <T>(...pickers: ((state: State) => T)[]) => 
-  <P>(getProps: (state: State, acctions?: Action) => P) => <PROP>(
+export declare type connect<ACTION, STATE> = (...pickers: ((state: STATE) => any)[]) => 
+  <P>(getProps: (state: STATE, acctions?: ACTION) => P) => <PROP>(
     wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
   ) => React.ComponentClass<PROP> 
 
 export default function initConnector<A extends {}>(actions: A = <A>{}) {
   return <S>(createAction: createAction<S>, subscribe: subscribe<S>) => {
-    return <T>(...pickers: ((state: S) => T)[]) => {
+    return (...pickers: ((state: S) => any)[]) => {
       return <P>(getProps: (state: S, actions: A) => P) => {
         return <PROP>(
           wrappedComponent: React.ComponentClass<P> | React.StatelessComponent<P>
