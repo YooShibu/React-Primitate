@@ -14,34 +14,22 @@ npm install react-primitate
 
 ```js
 const { createElement } = require("react");
-const startPrimitate = require("primitate").default;
-const initConnector = require("react-primitate").default;
+const { Primitate } = require("primitate");
+const { PrimitateComponent } = require("react-primitate");
 
-const { createAction, applyAddon } = startPrimitate({ counter: { count: 0 } });
+function identity(x) { return x; }
 
+const Counter = Primitate(0);
+const createPComponent = PrimitateComponent(Counter);
 
-const increment$ = createAction( state => state.counter )( counter => {
-    return { count: counter.count + 1 }
-  });
-
-const Counter = ({ count, increment }) => (
+const Counter_Comp = createPComponent(identity)( count => (
   createElement("div", null
-  , createElement("button", { onClick: increment}, "+")
   , createElement("p", null, count)
   )
-);
+));
 
 
-const connect = applyAddon( initConnector({ increment$ }) );
 
-
-// ConnectedComp has two state 'count' and 'increment'
-// The count will update when you emmit increment$
-
-const ConnectedComp = connect( state => state.counter )( (state, actions) => ({
-  count: state.counter.count,
-  increment: actions.increment$
-}))(Counter);
 ```
 
 ## LICENSE

@@ -10,7 +10,7 @@ const { DOM, createElement } = require("react");
 const { renderIntoDocument, Simulate } = require("react-addons-test-utils");
 const { findDOMNode } = require("react-dom");
 const { Primitate } = require("primitate");
-const { PrimitateElement } = require("../lib/ReactPrimitate");
+const { PrimitateComponent } = require("../lib/ReactPrimitate");
 
 
 function increment(x) { return x + 1; }
@@ -23,8 +23,8 @@ describe("React Primitate", () => {
     const Counter = Primitate(0);
     const increment$ = Counter.createAction(identity)(increment);
 
-    const createPElement = PrimitateElement(Counter);
-    const Counter_Element = createPElement(identity)( count => (
+    const createPComponent = PrimitateComponent(Counter);
+    const Counter_Element = createPComponent(identity)( count => (
       DOM.div(null, count)
     ));
 
@@ -34,7 +34,7 @@ describe("React Primitate", () => {
     }, 20);
     setTimeout( () => {
       expect(increment$()).toBe(1);
-    });
+    }, 25);
     setTimeout( () => {
       expect(findDOMNode(tree).textContent).toBe('1');
       done();
