@@ -32,7 +32,7 @@ function createPrimitateElement<State, PROPS>(
 export function PrimitateComponent<State>(PrimitateItem: PrimitateClass<State>) {
   return (...pickers: ((state: State) => any)[]) => {
     return <Props>(
-      wrappedElement: (state: State, props: Props) => React.ReactElement<Props>)
+      wrappedElement: (state: State, props: Props) => React.ReactElement<{}>)
     : React.ComponentClass<Props> => {
       return createPrimitateElement(PrimitateItem, pickers, wrappedElement);
     }
