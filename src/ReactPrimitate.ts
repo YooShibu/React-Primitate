@@ -4,7 +4,7 @@ import { PrimitateClass } from "primitate"
 function createPrimitateElement<State, PROPS>(
   PrimitateItem: PrimitateClass<State>
 , pickers: ((state: State) => any)[]
-, WrappedElement: (state: State, props: PROPS) => React.ReactElement<PROPS>): React.ComponentClass<PROPS> {
+, WrappedElement: (state: State, props: PROPS) => React.ReactElement<{}>): React.ComponentClass<PROPS> {
   return class extends React.Component<PROPS, { __PrimitateElm: State }> {
     private unsubscribe: () => void
     
