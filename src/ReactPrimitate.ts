@@ -2,7 +2,7 @@ import * as React from "react"
 import { PrimitateClass } from "primitate"
 
 
-export function PrimitateComponent<State, Props>(
+export function PrimitateComponent<State, Props extends { [key: string]: any }>(
     PrimitateItem: PrimitateClass<State>
   , wrappedElement: (state: State, props: Props) => React.ReactElement<{}>
   , ...pickers: ((state: State) => any)[]
