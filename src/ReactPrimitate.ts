@@ -1,7 +1,7 @@
 import * as React from "react"
 import { PrimitateClass } from "primitate"
 
-function createPrimitateElement<State, PROPS>(
+function createPrimitateComponent<State, PROPS>(
   PrimitateItem: PrimitateClass<State>
 , pickers: ((state: State) => any)[]
 , WrappedElement: (state: State, props: PROPS) => React.ReactElement<{}>): React.ComponentClass<PROPS> {
@@ -14,9 +14,11 @@ function createPrimitateElement<State, PROPS>(
     }
     
     componentWillMount() {
-      const subscriber =
-        <(listener: (state: State) => void) => () => void>PrimitateItem.subscribe.apply(PrimitateItem, pickers);
-      this.unsubscribe = subscriber( state => this.setState({ __PrimitateElm: state }) );
+      this.unsubscribe = PrimitateItem
+        .subscribe.apply(
+          PrimitateItem
+        , [(state: State) => this.setState({ __PrimitateElm: state })].concat(pickers)
+        );
     }
 
     componentWillUnmount() {
@@ -30,11 +32,10 @@ function createPrimitateElement<State, PROPS>(
 }
 
 export function PrimitateComponent<State>(PrimitateItem: PrimitateClass<State>) {
-  return (...pickers: ((state: State) => any)[]) => {
-    return <Props>(
-      wrappedElement: (state: State, props: Props) => React.ReactElement<{}>)
-    : React.ComponentClass<Props> => {
-      return createPrimitateElement(PrimitateItem, pickers, wrappedElement);
-    }
+  return <Props>(
+    wrappedElement: (state: State, props: Props) => React.ReactElement<{}>
+  , ...pickers: ((state: State) => any)[]
+  ): React.ComponentClass<Props> => {
+    return createPrimitateComponent(PrimitateItem, pickers, wrappedElement);
   }
 }

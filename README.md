@@ -22,7 +22,7 @@ function identity(x) { return x; }
 const Counter = Primitate(0);
 const createCounterComp = PrimitateComponent(Counter);
 
-const Counter_Comp = createCounterComp(identity)( count => (
+const Counter_Comp = createCounterComp( count => (
   createElement("div", null
   , createElement("p", null, count)
   )

@@ -21,10 +21,10 @@ describe("React Primitate", () => {
 
   it("create element", done => {
     const Counter = Primitate(0);
-    const increment$ = Counter.createAction(identity)(increment);
+    const increment$ = Counter.createAction(increment);
 
     const createPComponent = PrimitateComponent(Counter);
-    const Counter_Element = createPComponent(identity)( count => (
+    const Counter_Element = createPComponent( count => (
       DOM.div(null, count)
     ));
 

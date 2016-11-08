@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "primitate": "^4.0.0",
+    "primitate": "^5.0.0",
     "react": "^15.3.2"
   },
   "devDependencies": {
