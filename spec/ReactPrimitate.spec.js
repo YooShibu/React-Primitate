@@ -23,8 +23,7 @@ describe("React Primitate", () => {
     const Counter = Primitate(0);
     const increment$ = Counter.createAction(increment);
 
-    const createPComponent = PrimitateComponent(Counter);
-    const Counter_Element = createPComponent( count => (
+    const Counter_Element = PrimitateComponent( Counter, count => (
       DOM.div(null, count)
     ));
 

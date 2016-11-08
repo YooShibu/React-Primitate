@@ -20,13 +20,14 @@ const { PrimitateComponent } = require("react-primitate");
 function identity(x) { return x; }
 
 const Counter = Primitate(0);
-const createCounterComp = PrimitateComponent(Counter);
-
-const Counter_Comp = createCounterComp( count => (
-  createElement("div", null
-  , createElement("p", null, count)
-  )
+const Counter_Comp = PrimitateComponent(
+  Counter,
+  count => (
+    createElement("div", null
+    , createElement("p", null, count)
+    )
 ));
+
 
 // Counter_Comp is a Ract.ComponentClass so you can use like  
 // <Counter_Comp/> or React.createElement(Counter_Comp) 
