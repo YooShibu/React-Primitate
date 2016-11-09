@@ -17,8 +17,6 @@ function increment(x) { return x + 1; }
 function identity(x) { return x; }
 
 describe("React Primitate", () => {
-
-
   it("create element", done => {
     const Counter = Primitate(0);
     const increment$ = Counter.createAction(increment);
