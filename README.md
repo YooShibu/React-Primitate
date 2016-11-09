@@ -17,7 +17,6 @@ const { createElement } = require("react");
 const { Primitate } = require("primitate");
 const { PrimitateComponent } = require("react-primitate");
 
-function identity(x) { return x; }
 
 const Counter = Primitate(0);
 const Counter_Comp = PrimitateComponent(
