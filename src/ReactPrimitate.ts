@@ -5,7 +5,7 @@ import { PrimitateClass } from "primitate"
 export function PrimitateComponent<State, Props extends { [key: string]: any }>(
     PrimitateItem: PrimitateClass<State>
   , wrappedElement: (state: State, props: Props) => React.ReactElement<{}>
-  , pickers: ((state: State) => any)[]
+  , pickers?: ((state: State) => any)[]
   ): React.ComponentClass<Props> {
   return class extends React.Component<Props, { __PrimitateElm: State }> {
     private unsubscribe: () => void
