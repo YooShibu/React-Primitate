@@ -6,6 +6,7 @@ export function PrimitateComponent<State, Props extends { [key: string]: any }>(
     PrimitateItem: PrimitateClass<State>
   , wrappedElement: (state: State, props: Props) => React.ReactElement<{}>
   , pickers?: ((state: State) => any)[]
+  , isLazy?: boolean
   ): React.ComponentClass<Props> {
   return class extends React.Component<Props, { __PrimitateElm: State }> {
     private unsubscribe: () => void
@@ -15,10 +16,10 @@ export function PrimitateComponent<State, Props extends { [key: string]: any }>(
       this.state = { __PrimitateElm: PrimitateItem.getCurrentState() };
     }
     
-    componentWillMount() {
+    componentDidMount() {
       this.unsubscribe = PrimitateItem
         .subscribe((state: State) =>
-          this.setState({ __PrimitateElm: state }), pickers);
+          this.setState({ __PrimitateElm: state }), pickers, isLazy);
     }
 
     componentWillUnmount() {
